@@ -1,6 +1,7 @@
 package com.gestion.EPS;
 
 import java.sql.Date;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -13,13 +14,57 @@ import com.gestion.EPS.modelos.*;
 import com.gestion.EPS.servicios.CitaService;
 import com.gestion.EPS.servicios.EspecialistaService;
 import com.gestion.EPS.servicios.PacienteService;
+import com.gestion.EPS.servicios.UsuarioService;
+import java.util.Set;
+import java.util.HashSet;
 
 @SpringBootApplication
-public class GestionEpsBackendApplication{
+public class GestionEpsBackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GestionEpsBackendApplication.class, args);
 	}
+	
+	/*
+	
+	@Autowired
+	private UsuarioService usuarioService;
+
+	@Override
+	public void run(String... args) throws Exception {
+		Usuario usuario = new Usuario();
+		
+		usuario.setDocumento(1007656387L);
+		usuario.setTipodocumento("CC");
+		usuario.setUsername("antonito");
+		usuario.setNombre1("Antonio");
+		usuario.setNombre2("Adolfo");
+		usuario.setApellido1("Correa");
+		usuario.setApellido2("Ramirez");
+		usuario.setCorreo("antonio@gmail.com");
+		usuario.setContrasena("123");
+		usuario.setSexo("M");
+		
+		Rol rol = new Rol();
+		rol.setRolId(1L);
+		rol.setNombre("ADMIN");
+		
+		
+		Set<UsuarioRol> usuarioRoles = new HashSet<>();
+		UsuarioRol usuarioRol = new UsuarioRol();
+		
+		usuarioRol.setRol(rol);
+		usuarioRol.setUsuario(usuario);
+		usuarioRoles.add(usuarioRol);
+		
+		Usuario usuarioGuardado = usuarioService.guardarUsuario(usuario, usuarioRoles);
+		System.out.println(usuarioGuardado.getUsername());
+		
+	}
+	
+	*/
+	
+}
 
 	/*
 	@Autowired
@@ -91,4 +136,4 @@ public class GestionEpsBackendApplication{
 	}
 	*/
 	
-}
+

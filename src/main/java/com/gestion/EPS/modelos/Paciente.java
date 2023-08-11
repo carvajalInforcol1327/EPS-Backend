@@ -10,13 +10,15 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="pacientes")
 public class Paciente {
 	
 	@Id
-	private Long cedula;
+	private long cedula;
 	
 	@Column(name = "nombres", length = 45, nullable = false)
 	private String nombres;
@@ -43,8 +45,9 @@ public class Paciente {
 	private String direccion;
 	
 	private boolean enabled = true;
-	
+
 	@OneToMany(mappedBy = "paciente")
+	@JsonIgnore
 	List<Cita> listaPaciente;
 	
 	/*
@@ -55,7 +58,7 @@ public class Paciente {
 		
 	}
 
-	public Paciente(Long cedula, String nombres, String apellidos, String rh, String telefono, String correo,
+	public Paciente(long cedula, String nombres, String apellidos, String rh, String telefono, String correo,
 			String departamento, String ciudad, String direccion, boolean enabled, List<Cita> listaPaciente) {
 		super();
 		this.cedula = cedula;
@@ -71,11 +74,11 @@ public class Paciente {
 		this.listaPaciente = listaPaciente;
 	}
 
-	public Long getCedula() {
+	public long getCedula() {
 		return cedula;
 	}
 
-	public void setCedula(Long cedula) {
+	public void setCedula(long cedula) {
 		this.cedula = cedula;
 	}
 

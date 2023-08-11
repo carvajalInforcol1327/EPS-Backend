@@ -3,6 +3,7 @@ package com.gestion.EPS.modelos;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -17,12 +18,15 @@ public class Cita {
 	@JsonFormat(pattern="yyyy-MM-dd",timezone = "America/Bogota")
 	 private Date fecha;
 	
+	@Column(name = "observacion", length = 45, nullable = false)
+	private String observacion;
+	
 	@ManyToOne
-	@JoinColumn(name = "paciente_nombre", referencedColumnName = "cedula")
+	@JoinColumn(name = "paciente_cedula", referencedColumnName = "cedula")
 	Paciente paciente;
 	
 	@ManyToOne
-	@JoinColumn(name = "especialista_nombre", referencedColumnName = "cedula")
+	@JoinColumn(name = "especialista_cedula", referencedColumnName = "cedula")
 	Especialista especialista;
 	
 	
@@ -33,13 +37,16 @@ public class Cita {
 
 
 
-	public Cita(Long id, Date fecha, Paciente paciente, Especialista especialista) {
+
+	public Cita(Long id, Date fecha, String observacion, Paciente paciente, Especialista especialista) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
+		this.observacion = observacion;
 		this.paciente = paciente;
 		this.especialista = especialista;
 	}
+
 
 
 
@@ -92,8 +99,18 @@ public class Cita {
 
 
 
-	
-	
+	public String getObservacion() {
+		return observacion;
+	}
+
+
+
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
+
 	
 	/*
 	@ManyToOne(fetch = FetchType.EAGER)

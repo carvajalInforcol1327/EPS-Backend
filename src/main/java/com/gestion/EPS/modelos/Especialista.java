@@ -5,16 +5,21 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="especialistas")
 public class Especialista {
 	
 	@Id
-	private Long cedula;
+	private long cedula;
 	
 	@Column(name = "nombres", length = 45, nullable = false)
 	private String nombres;
@@ -40,13 +45,17 @@ public class Especialista {
 	@Column(name = "direccion", length = 45, nullable = false)
 	private String direccion;
 	
-	@Column(name = "especialidad", length = 45, nullable = false)
-	private String especialidad;
-	
 	private boolean enabled = true;
 	
+	@ManyToOne(fetch =  FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @JoinColumn(name = "especialidadId", referencedColumnName = "especialidad_id")
+    private Especialidad especialidad;
+	
 	@OneToMany(mappedBy = "especialista")
+	@JsonIgnore
 	List<Cita> listaEspecialista;
+	
 	
 	/*
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "especialista")
@@ -56,8 +65,10 @@ public class Especialista {
 		
 	}
 
-	public Especialista(Long cedula, String nombres, String apellidos, String rh, String telefono, String correo,
-			String departamento, String ciudad, String direccion, String especialidad, boolean enabled,
+	
+
+	public Especialista(long cedula, String nombres, String apellidos, String rh, String telefono, String correo,
+			String departamento, String ciudad, String direccion, boolean enabled, Especialidad especialidad,
 			List<Cita> listaEspecialista) {
 		super();
 		this.cedula = cedula;
@@ -69,16 +80,18 @@ public class Especialista {
 		this.departamento = departamento;
 		this.ciudad = ciudad;
 		this.direccion = direccion;
-		this.especialidad = especialidad;
 		this.enabled = enabled;
+		this.especialidad = especialidad;
 		this.listaEspecialista = listaEspecialista;
 	}
 
-	public Long getCedula() {
+
+
+	public long getCedula() {
 		return cedula;
 	}
 
-	public void setCedula(Long cedula) {
+	public void setCedula(long cedula) {
 		this.cedula = cedula;
 	}
 
@@ -146,14 +159,6 @@ public class Especialista {
 		this.direccion = direccion;
 	}
 
-	public String getEspecialidad() {
-		return especialidad;
-	}
-
-	public void setEspecialidad(String especialidad) {
-		this.especialidad = especialidad;
-	}
-
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -168,6 +173,17 @@ public class Especialista {
 
 	public void setListaEspecialista(List<Cita> listaEspecialista) {
 		this.listaEspecialista = listaEspecialista;
+	}
+
+
+
+	public Especialidad getEspecialidad() {
+		return especialidad;
+	}
+
+
+	public void setEspecialidad(Especialidad especialidad) {
+		this.especialidad = especialidad;
 	}
 	
 	

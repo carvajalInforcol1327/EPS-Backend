@@ -1,5 +1,7 @@
 package com.gestion.EPS.servicios.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.gestion.EPS.modelos.Especialista;
@@ -17,7 +19,13 @@ public class EspecialistaServiceImpl implements EspecialistaService {
 		Especialista especialistaGuardado = EspecialistaRepositorio.save(especialista);
 		return especialistaGuardado;
 	}
-	
+
+	@Override
+	public List<Especialista> listarTodosLosEspecialistas() throws Exception {
+		return EspecialistaRepositorio.findAll();
+	}
+
+
 	
 
 	
